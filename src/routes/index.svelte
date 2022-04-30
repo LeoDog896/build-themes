@@ -30,7 +30,11 @@
 
 <div class="text-center">
   <input placeholder="Enter input (_ is wildcard)" bind:value={filter}>
-  {#each sortedThemes as theme}
-    <p>{theme}</p>
-  {/each}
+  {#if sortedThemes.length > 0}
+    {#each sortedThemes as theme}
+      <p>{theme}</p>
+    {/each}
+  {:else}
+    <p>No themes found. <a href="https://github.com/LeoDog896/build-themes">Feel free to add a new one!</a></p>
+  {/if}
 </div>
