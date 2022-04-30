@@ -1,7 +1,7 @@
 <script lang="ts">
   import themes from "$lib/themes"
 
-  let filter: string;
+  let filter: string = "";
 
   // Creates a function that checks if a input matches the name.
   // For example, __a_ will match the string "that", and _al_ will match the string "ball"
@@ -32,7 +32,7 @@
   <input placeholder="Enter input (_ is wildcard) mb-4 w-1/2" bind:value={filter}>
   {#if sortedThemes.length > 0}
     {#each sortedThemes as theme}
-      <p>{theme}</p>
+      <p class:text-gray-600={theme.length != filter.length}>{theme}</p>
     {/each}
   {:else}
     <p>No themes found. <a class="text-blue-400 hover:text-blue-500 underline" href="https://github.com/LeoDog896/build-themes">Feel free to add a new one!</a></p>
