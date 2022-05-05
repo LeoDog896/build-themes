@@ -25,6 +25,7 @@
 
   $: filteredThemes = filter ? themes.filter(theme => matches(filter, theme)) : themes
 
+  let [small, large]: number[][] = []
   $: [small, large] = filteredThemes.reduce((result, element) => {
       result[element.length == filter.length ? 0 : 1].push(element); // Determine and push to small/large arr
       return result;
@@ -36,10 +37,10 @@
 
 <div class="text-center m-8 w-[100vw - 4rem]">
   <input placeholder="Search (_ is wildcard)" class="px-2 py-2 mb-4 w-1/2 border-b border-gray-800 border-dotted" bind:value={filter}>
-  <div class="flex flex-col w-full">
+  <div class="flex flex-col w-full flex-wrap">
     {#if sortedThemes.length > 0}
       {#each sortedThemes as theme}
-        <p class="basis-1/3" class:text-gray-400={theme.length != filter.length}>{theme}</p>
+        <span class="w-1/3 basis-1/3" on:click={() => navigator.clipboard.writeText(theme)} class:text-gray-400={theme.length != filter.length}>{theme}</span>
       {/each}
     {:else}
       <p>No themes found. <a class="text-blue-400 hover:text-blue-500 underline" href="https://github.com/LeoDog896/build-themes">Feel free to add a new one!</a></p>
