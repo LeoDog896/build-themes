@@ -39,7 +39,7 @@
   <div class="flex flex-col w-full">
     {#if sortedThemes.length > 0}
       {#each sortedThemes as theme}
-        <p class="basis-1/3" class:text-gray-600={theme.length != filter.length}>{theme}</p>
+        <p class="basis-1/3" class:text-gray-400={theme.length != filter.length}>{theme}</p>
       {/each}
     {:else}
       <p>No themes found. <a class="text-blue-400 hover:text-blue-500 underline" href="https://github.com/LeoDog896/build-themes">Feel free to add a new one!</a></p>
