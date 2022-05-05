@@ -25,17 +25,24 @@
 
   $: filteredThemes = filter ? themes.filter(theme => matches(filter, theme)) : themes
 
+  $: [small, large] = filteredThemes.reduce((result, element) => {
+      result[element.length == filter.length ? 0 : 1].push(element); // Determine and push to small/large arr
+      return result;
+    }, [[], []]);  
+
   // sort alphabetically then put entries that are theme.length != filter.length
-  $: sortedThemes = filteredThemes.sort((a, b) => a.localeCompare(b)).sort((a, b) => a.length == filter.length ? -1 : 1)
+  $: sortedThemes = filteredThemes.sort((a, b) => a.localeCompare(b)).sort(a => a.length == filter.length ? -1 : 1)
 </script>
 
 <div class="text-center m-8 w-[100vw - 4rem]">
-  <input placeholder="Enter input (_ is wildcard) mb-4 w-1/2" bind:value={filter}>
-  {#if sortedThemes.length > 0}
-    {#each sortedThemes as theme}
-      <p class:text-gray-600={theme.length != filter.length}>{theme}</p>
-    {/each}
-  {:else}
-    <p>No themes found. <a class="text-blue-400 hover:text-blue-500 underline" href="https://github.com/LeoDog896/build-themes">Feel free to add a new one!</a></p>
-  {/if}
+  <input placeholder="Search (_ is wildcard)" class="px-2 py-2 mb-4 w-1/2 border-b border-gray-800 border-dotted" bind:value={filter}>
+  <div class="flex flex-col w-full">
+    {#if sortedThemes.length > 0}
+      {#each sortedThemes as theme}
+        <p class="basis-1/3" class:text-gray-600={theme.length != filter.length}>{theme}</p>
+      {/each}
+    {:else}
+      <p>No themes found. <a class="text-blue-400 hover:text-blue-500 underline" href="https://github.com/LeoDog896/build-themes">Feel free to add a new one!</a></p>
+    {/if}
+  </div>
 </div>
