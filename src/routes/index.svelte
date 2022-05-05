@@ -25,7 +25,8 @@
 
   $: filteredThemes = filter ? themes.filter(theme => matches(filter, theme)) : themes
 
-  $: sortedThemes = filteredThemes.sort((a, b) => a.localeCompare(b))
+  // sort alphabetically then put entries that are theme.length != filter.length
+  $: sortedThemes = filteredThemes.sort((a, b) => a.localeCompare(b)).sort((a, b) => a.length == filter.length ? -1 : 1)
 </script>
 
 <div class="text-center m-8 w-[100vw - 4rem]">
