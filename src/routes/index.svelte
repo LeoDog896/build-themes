@@ -25,14 +25,17 @@
 
   $: filteredThemes = filter ? themes.filter(theme => matches(filter, theme)) : themes
 
-  let [small, large]: number[][] = []
-  $: [small, large] = filteredThemes.reduce((result, element) => {
+  let [active, inactive]: number[][] = []
+  $: [active, inactive] = filteredThemes.reduce((result, element) => {
       result[element.length == filter.length ? 0 : 1].push(element); // Determine and push to small/large arr
       return result;
     }, [[], []]);  
 
   // sort alphabetically then put entries that are theme.length != filter.length
-  $: sortedThemes = filteredThemes.sort((a, b) => a.localeCompare(b)).sort(a => a.length == filter.length ? -1 : 1)
+  $: sortedActiveThemes = active.sort((a, b) => a.localeCompare(b))
+  $: sortedInactiveThemes = inactive.sort((a, b) => a.localeCompare(b))
+
+  $: sortedThemes = [...sortedActiveThemes, ...sortedInactiveThemes]
 </script>
 
 <div class="text-center m-8 w-[100vw - 4rem]">
