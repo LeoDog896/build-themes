@@ -25,7 +25,7 @@
 
   $: filteredThemes = filter ? themes.filter(theme => matches(filter, theme)) : themes
 
-  let [active, inactive]: number[][] = []
+  let [active, inactive]: string[][] = []
   $: [active, inactive] = filteredThemes.reduce((result, element) => {
       result[element.length == filter.length ? 0 : 1].push(element); // Determine and push to small/large arr
       return result;
