@@ -37,10 +37,10 @@
 
 <div class="text-center m-8 w-[100vw - 4rem]">
   <input placeholder="Search (_ is wildcard)" class="px-2 py-2 mb-4 w-1/2 border-b border-gray-800 border-dotted" bind:value={filter}>
-  <div class="flex flex-col w-full flex-wrap">
+  <div class="columns-1 sm-columns-2 md:columns-3 lg:columns-5">
     {#if sortedThemes.length > 0}
       {#each sortedThemes as theme}
-        <span class="w-1/3 basis-1/3" on:click={() => navigator.clipboard.writeText(theme)} class:text-gray-400={theme.length != filter.length}>{theme}</span>
+        <span class="w-full" on:click={() => navigator.clipboard.writeText(theme)} class:text-gray-400={theme.length != filter.length}>{theme}</span><br/>
       {/each}
     {:else}
       <p>No themes found. <a class="text-blue-400 hover:text-blue-500 underline" href="https://github.com/LeoDog896/build-themes">Feel free to add a new one!</a></p>
